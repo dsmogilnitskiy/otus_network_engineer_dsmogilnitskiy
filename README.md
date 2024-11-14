@@ -1,1 +1,1 @@
-# otus_network_engineer_dsmogilnitskiy
+# Репозиторий лабораторных работ курса "Сетевой инженер" в OTUS.ru
