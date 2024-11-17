@@ -7,11 +7,16 @@ interface Loopback2
    ip address 10.1.2.2/32
 !
 interface Ethernet1
-   description P2P_Leaf2_Eth2
+   description P2P_Leaf1_Eth2
    no switchport
    ip address 10.1.2.5/30
 !
 interface Ethernet2
-   description P2P_Leaf3_Eth1
+   description P2P_Leaf2_Eth2
    no switchport
    ip address 10.1.2.9/30
+!
+interface Ethernet3
+   description P2P_Leaf3_Eth2
+   no switchport
+   ip address 10.1.2.13/30

@@ -15,3 +15,8 @@ interface Ethernet2
    description P2P_Leaf2_Eth1
    no switchport
    ip address 10.1.1.9/30
+!
+interface Ethernet3
+   description P2P_Leaf3_Eth1
+   no switchport
+   ip address 10.1.1.13/30
