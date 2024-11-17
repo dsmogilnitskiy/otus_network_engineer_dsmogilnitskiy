@@ -22,20 +22,20 @@ ip = 10.st.splf.x, где:
 1. Spine1:   
 
 ```console
-console
+!
 interface Loopback1  
-description Loopback1  
-ip address 10.1.1.1/32
-
+   description Loopback1  
+   ip address 10.1.1.1/32
+!
 interface Loopback2  
-description Loobpack2  
-ip address 10.1.1.2/32  
-
+   description Loobpack2  
+   ip address 10.1.1.2/32  
+!
 interface Ethernet1  
    description P2P_Leaf1_Eth1  
    no switchport  
    ip address 10.1.1.5/30  
-
+!
 interface Ethernet2  
    description P2P_Leaf2_Eth1  
    no switchport  
@@ -45,15 +45,16 @@ interface Ethernet2
 2. Leaf1:  
 
 ```console
+!
 interface Loopback1  
    description Loopback1  
    ip address 10.1.3.1/32  
-
+!
 interface Loopback2  
    description Loopback2  
-   ip address 10.1.3.2/32  
-
-   interface Ethernet1  
+   ip address 10.1.3.2/32 
+!
+interface Ethernet1  
    description P2P_Spine1_Eth1  
    no switchport  
    ip address 10.1.1.6/30  
@@ -62,60 +63,61 @@ interface Loopback2
    3. Leaf2:  
 
 ```console
-   interface Loopback1  
+!
+interface Loopback1  
    description Loopback1  
    ip address 10.1.4.1/32  
-
+!
 interface Loopback2  
    description Loopback2  
    ip address 10.1.4.2/32  
-
-   interface Ethernet1  
+!
+interface Ethernet1  
    description P2P_Spine1_Eth2  
    no switchport  
    ip address 10.1.1.10/30  
-   
-
+!
 interface Ethernet2  
    description P2P_Spine2_ETh1  
    no switchport  
    ip address 10.1.2.6/30  
 ```
 
-   4. Spine2:  
-   
-   ```console
-   interface Loopback1  
+4. Spine2:  
+```console
+!
+interface Loopback1  
    description Loopback1  
    ip address 10.1.2.1/32  
-
+!
 interface Loopback2  
    description Loopback2  
    ip address 10.1.2.2/32  
-
-   interface Ethernet1  
+!
+interface Ethernet1  
    description P2P_Leaf2_Eth2  
    no switchport  
    ip address 10.1.2.5/30  
-
+!
 interface Ethernet2  
    description P2P_Leaf3_Eth1  
    no switchport  
    ip address 10.1.2.9/30  
-   ```
+```
 
    5. Leaf3:
 
   ```console
-   interface Loopback1  
+!
+interface Loopback1  
    description Loopback1  
    ip address 10.1.5.1/32  
-
+!
 interface Loopback2  
    description Loopback2  
    ip address 10.1.5.2/32  
-
-   interface Ethernet1  
+!
+interface Ethernet1  
    description P2P_Spine2_Eth2  
    no switchport  
    ip address 10.1.2.10/30  
