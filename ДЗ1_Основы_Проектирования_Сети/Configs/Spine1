@@ -1,0 +1,16 @@
+interface Loopback1
+   description Loopback1
+   ip address 10.1.1.1/32
+!
+interface Loopback2
+   description Loobpack2
+   ip address 10.1.1.2/32
+!interface Ethernet1
+   description P2P_Leaf1_Eth1
+   no switchport
+   ip address 10.1.1.5/30
+!
+interface Ethernet2
+   description P2P_Leaf2_Eth1
+   no switchport
+   ip address 10.1.1.9/30

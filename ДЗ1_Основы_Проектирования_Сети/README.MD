@@ -18,9 +18,9 @@ ip = 10.st.splf.x, где:
 ## L3 Схема сети
 ![alt text](image-2.png)
 ## Конфигурация устройств
-1. Spine1:  
 
-`interface Loopback1  
+1. Spine1:  
+interface Loopback1  
 description Loopback1  
 ip address 10.1.1.1/32  
 
