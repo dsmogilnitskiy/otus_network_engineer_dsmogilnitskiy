@@ -20,9 +20,10 @@ ip = 10.st.splf.x, где:
 ## Конфигурация устройств
 
 1. Spine1:  
+
 interface Loopback1  
 description Loopback1  
-ip address 10.1.1.1/32  
+ip address 10.1.1.1/32
 
 interface Loopback2  
 description Loobpack2  
@@ -36,7 +37,7 @@ interface Ethernet1
 interface Ethernet2  
    description P2P_Leaf2_Eth1  
    no switchport  
-   ip address 10.1.1.9/30`
+   ip address 10.1.1.9/30
 
 2. Leaf1:  
 

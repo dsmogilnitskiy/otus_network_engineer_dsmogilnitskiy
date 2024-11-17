@@ -5,7 +5,8 @@ interface Loopback1
 interface Loopback2
    description Loobpack2
    ip address 10.1.1.2/32
-!interface Ethernet1
+!
+interface Ethernet1
    description P2P_Leaf1_Eth1
    no switchport
    ip address 10.1.1.5/30

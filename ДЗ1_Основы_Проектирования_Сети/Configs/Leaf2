@@ -1,0 +1,17 @@
+interface Loopback1
+   description Loopback1
+   ip address 10.1.4.1/32
+!
+interface Loopback2
+   description Loopback2
+   ip address 10.1.4.2/32
+!
+interface Ethernet1
+   description P2P_Spine1_Eth2
+   no switchport
+   ip address 10.1.1.10/30
+!
+interface Ethernet2
+   description P2P_Spine2_ETh1
+   no switchport
+   ip address 10.1.2.6/30
