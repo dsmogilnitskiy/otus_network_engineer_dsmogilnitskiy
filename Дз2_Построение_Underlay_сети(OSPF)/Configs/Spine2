@@ -18,6 +18,7 @@ interface Ethernet3
    ip address 10.1.2.13/30
    ip ospf network point-to-point
    ip ospf area 0.0.0.0
+!
 interface Loopback1
    description Loopback1
    ip address 10.1.2.1/32
