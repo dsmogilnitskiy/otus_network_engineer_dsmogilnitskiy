@@ -1,0 +1,34 @@
+interface Ethernet1
+   description P2P_Spine1_Eth1
+   no switchport
+   ip address 10.1.1.6/30
+   ip ospf network point-to-point
+   ip ospf area 0.0.0.0
+!
+interface Ethernet2
+   description P2P_Spine2_Eth1
+   no switchport
+   ip address 10.1.2.6/30
+   ip ospf network point-to-point
+   ip ospf area 0.0.0.0
+!
+interface Loopback1
+   description Loopback1
+   ip address 10.1.3.1/32
+   ip ospf area 0.0.0.0
+!
+interface Loopback2
+   description Loopback2
+   ip address 10.1.3.2/32
+   ip ospf area 0.0.0.0
+!
+ip routing
+!
+router ospf 99
+   router-id 10.1.3.1
+   passive-interface default
+   no passive-interface Ethernet1
+   no passive-interface Ethernet2
+   no passive-interface Loopback1
+   no passive-interface Loopback2
+   max-lsa 12000
