@@ -277,7 +277,7 @@ Leaf3(config)#int ethernet 2
 Leaf3(config-if-Et2)#ip ospf authentication message-digest 
 Leaf3(config-if-Et2)#ip ospf message-digest-key 1 md5 cisco
 ```
-После настройки видимо что соседство OSPF установлено и маршруты идут как полагается
+После настройки видим что соседство OSPF установлено и маршруты идут как полагается
 
 ```console
 Spine1#sh ip ospf nei
@@ -295,8 +295,10 @@ Spine1#sh ip route
  C        10.1.1.8/30 is directly connected, Ethernet2
  C        10.1.1.12/30 is directly connected, Ethernet3
  O        10.1.2.1/32 [110/30] via 10.1.1.6, Ethernet1
+                               via 10.1.1.10, Ethernet2
                                via 10.1.1.14, Ethernet3
  O        10.1.2.2/32 [110/30] via 10.1.1.6, Ethernet1
+                               via 10.1.1.10, Ethernet2
                                via 10.1.1.14, Ethernet3
  O        10.1.2.4/30 [110/20] via 10.1.1.6, Ethernet1
  O        10.1.2.8/30 [110/20] via 10.1.1.10, Ethernet2
@@ -306,7 +308,6 @@ Spine1#sh ip route
  O        10.1.4.1/32 [110/20] via 10.1.1.10, Ethernet2
  O        10.1.4.2/32 [110/20] via 10.1.1.10, Ethernet2
  O        10.1.5.1/32 [110/20] via 10.1.1.14, Ethernet3
- O        10.1.5.2/32 [110/20] via 10.1.1.14, Ethernet3
 ```
 ### 9. Настроить работу протокола BFD
 BFD настраиваем на физичесикх линках. В целях экономии места покажу на связке Spine1-Leaf1
