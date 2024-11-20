@@ -7,6 +7,8 @@
 5. Настроить на всех устройствах Douter id
 6. Добавить все интерфейсы и лупбеки в OSPF
 7. Проверить таблицу маршрутизации и пингануть устройства
+8. Настроить ауктентификацию OSPF
+9. Настроить работу протокола BFD
 
 ### 1. L3 схема сети
 ![alt text](../ДЗ1_Основы_Проектирования_Сети/image.png)
@@ -225,3 +227,125 @@ Link ID         ADV Router      Age         Seq#         Checksum Link count
 10.1.5.1        10.1.5.1        663         0x80000008   0xcf13   6
 10.1.1.1        10.1.1.1        535         0x8000000f   0x9ef3   8
 ```
+
+### 8. Настройка аутентификации OSPF
+
+```console
+Spine1#conf t
+Spine1(config)#int ethernet 1
+Spine1(config-if-Et1)#ip ospf authentication message-digest 
+Spine1(config-if-Et1)#ip ospf message-digest-key 1 md5 cisco
+Spine1(config)#int ethernet 2
+Spine1(config-if-Et2)#ip ospf authentication message-digest 
+Spine1(config-if-Et2)#ip ospf message-digest-key 1 md5 cisco
+Spine1(config)#int ethernet 3
+Spine1(config-if-Et3)#ip ospf authentication message-digest 
+Spine1(config-if-Et3)#ip ospf message-digest-key 1 md5 cisco
+
+Spine2#conf t
+Spine2(config)#int ethernet 1
+Spine2(config-if-Et1)#ip ospf authentication message-digest 
+Spine2(config-if-Et1)#ip ospf message-digest-key 1 md5 cisco
+Spine2(config)#int ethernet 2
+Spine2(config-if-Et2)#ip ospf authentication message-digest 
+Spine2(config-if-Et2)#ip ospf message-digest-key 1 md5 cisco
+Spine2(config)#int ethernet 3
+Spine2(config-if-Et3)#ip ospf authentication message-digest 
+Spine2(config-if-Et3)#ip ospf message-digest-key 1 md5 cisco
+
+Leaf1#conf t
+Leaf1(config)#int ethernet 1
+Leaf1(config-if-Et1)#ip ospf authentication message-digest 
+Leaf1(config-if-Et1)#ip ospf message-digest-key 1 md5 cisco
+Leaf1(config)#int ethernet 2
+Leaf1(config-if-Et2)#ip ospf authentication message-digest 
+Leaf1(config-if-Et2)#ip ospf message-digest-key 1 md5 cisco
+
+Leaf2#conf t
+Leaf2(config)#int ethernet 1
+Leaf2(config-if-Et1)#ip ospf authentication message-digest 
+Leaf2(config-if-Et1)#ip ospf message-digest-key 1 md5 cisco
+Leaf2(config)#int ethernet 2
+Leaf2(config-if-Et2)#ip ospf authentication message-digest 
+Leaf2(config-if-Et2)#ip ospf message-digest-key 1 md5 cisco
+
+Leaf3#conf t
+Leaf3(config)#int ethernet 1
+Leaf3(config-if-Et1)#ip ospf authentication message-digest 
+Leaf3(config-if-Et1)#ip ospf message-digest-key 1 md5 cisco
+Leaf3(config)#int ethernet 2
+Leaf3(config-if-Et2)#ip ospf authentication message-digest 
+Leaf3(config-if-Et2)#ip ospf message-digest-key 1 md5 cisco
+```
+После настройки видимо что соседство OSPF установлено и маршруты идут как полагается
+
+```console
+Spine1#sh ip ospf nei
+Neighbor ID     Instance VRF      Pri State                  Dead Time   Address         Interface
+10.1.3.1        99       default  0   FULL                   00:00:31    10.1.1.6        Ethernet1
+10.1.4.1        99       default  0   FULL                   00:00:36    10.1.1.10       Ethernet2
+10.1.5.1        99       default  0   FULL                   00:00:31    10.1.1.14       Ethernet3
+```
+```console
+Spine1#sh ip route
+
+ C        10.1.1.1/32 is directly connected, Loopback1
+ C        10.1.1.2/32 is directly connected, Loopback2
+ C        10.1.1.4/30 is directly connected, Ethernet1
+ C        10.1.1.8/30 is directly connected, Ethernet2
+ C        10.1.1.12/30 is directly connected, Ethernet3
+ O        10.1.2.1/32 [110/30] via 10.1.1.6, Ethernet1
+                               via 10.1.1.14, Ethernet3
+ O        10.1.2.2/32 [110/30] via 10.1.1.6, Ethernet1
+                               via 10.1.1.14, Ethernet3
+ O        10.1.2.4/30 [110/20] via 10.1.1.6, Ethernet1
+ O        10.1.2.8/30 [110/20] via 10.1.1.10, Ethernet2
+ O        10.1.2.12/30 [110/20] via 10.1.1.14, Ethernet3
+ O        10.1.3.1/32 [110/20] via 10.1.1.6, Ethernet1
+ O        10.1.3.2/32 [110/20] via 10.1.1.6, Ethernet1
+ O        10.1.4.1/32 [110/20] via 10.1.1.10, Ethernet2
+ O        10.1.4.2/32 [110/20] via 10.1.1.10, Ethernet2
+ O        10.1.5.1/32 [110/20] via 10.1.1.14, Ethernet3
+ O        10.1.5.2/32 [110/20] via 10.1.1.14, Ethernet3
+```
+### 9. Настроить работу протокола BFD
+BFD настраиваем на физичесикх линках. В целях экономии места покажу на связке Spine1-Leaf1
+
+```console
+Spine1#conf t
+Spine1(config)#int ethernet 1
+Spine1(config-if-Et1)#bfd interval 100 min-rx 100 multiplier 3
+Spine1(config-if-Et1)#ip ospf neighbor bfd 
+
+Leaf1#conf t
+Leaf1(config)#int ethernet 1
+Leaf1(config-if-Et1)#bfd interval 100 min-rx 100 multiplier 3
+Leaf1(config-if-Et1)#ip ospf neighbor bfd 
+```
+
+Проверка
+
+```console
+Spine1#sh bfd peers 
+VRF name: default
+-----------------
+DstAddr       MyDisc    YourDisc  Interface/Transport    Type           LastUp 
+--------- ----------- ----------- -------------------- ------- ----------------
+10.1.1.6  3861721783  2100275814        Ethernet1(30)  normal   11/20/24 12:21 
+
+   LastDown            LastDiag    State
+-------------- ------------------- -----
+         NA       No Diagnostic       Up
+
+Leaf1#sh bfd peers 
+VRF name: default
+-----------------
+DstAddr       MyDisc    YourDisc  Interface/Transport    Type           LastUp 
+--------- ----------- ----------- -------------------- ------- ----------------
+10.1.1.5  2100275814  3861721783        Ethernet1(30)  normal   11/20/24 12:21 
+
+   LastDown            LastDiag    State
+-------------- ------------------- -----
+         NA       No Diagnostic       Up
+```
+

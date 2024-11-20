@@ -2,22 +2,34 @@ interface Ethernet1
    description P2P_Leaf1_Eth2
    no switchport
    ip address 10.1.2.5/30
+   bfd interval 100 min-rx 100 multiplier 3
+   ip ospf neighbor bfd
    ip ospf network point-to-point
+   ip ospf authentication message-digest
    ip ospf area 0.0.0.0
+   ip ospf message-digest-key 1 md5 7 LpyMIOE5MPsSRq6pTPawmA==
 !
 interface Ethernet2
    description P2P_Leaf2_Eth2
    no switchport
    ip address 10.1.2.9/30
+   bfd interval 100 min-rx 100 multiplier 3
+   ip ospf neighbor bfd
    ip ospf network point-to-point
+   ip ospf authentication message-digest
    ip ospf area 0.0.0.0
+   ip ospf message-digest-key 1 md5 7 lIjV8sEai21iNsPCdcUksQ==
 !
 interface Ethernet3
    description P2P_Leaf3_Eth2
    no switchport
    ip address 10.1.2.13/30
+   bfd interval 100 min-rx 100 multiplier 3
+   ip ospf neighbor bfd
    ip ospf network point-to-point
+   ip ospf authentication message-digest
    ip ospf area 0.0.0.0
+   ip ospf message-digest-key 1 md5 7 lIjV8sEai21iNsPCdcUksQ==
 !
 interface Loopback1
    description Loopback1
