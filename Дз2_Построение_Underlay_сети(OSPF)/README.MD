@@ -324,7 +324,7 @@ Leaf1(config-if-Et1)#bfd interval 100 min-rx 100 multiplier 3
 Leaf1(config-if-Et1)#ip ospf neighbor bfd 
 ```
 
-Проверка
+Проверка работы BFD:
 
 ```console
 Spine1#sh bfd peers 
