@@ -169,7 +169,7 @@ Spine2(config-if-Lo2)#isis circuit-type level-1
 
 Leaf1#conf t
 Leaf1(config)#router isis 99
-Leaf1(config-router-isis)#net 49.0001.0100.0100.1001.00
+Leaf1(config-router-isis)#net 49.0001.0100.0100.3001.00
 Leaf1(config-router-isis)#router-id ipv4 10.1.1.1
 Leaf1(config-router-isis)#is-type level-1-2
 Leaf1(config-router-isis)#address-family ipv4 unicast
