@@ -414,6 +414,10 @@ Spine2(config-if-Et1)#int ethernet 2
 Spine2(config-if-Et2)#isis network point-to-point
 Spine2(config-if-Et2)#isis authentication mode md5
 Spine2(config-if-Et2)#isis authentication key cisco
+Spine2(config-if-Et2)#int ethernet 3
+Spine2(config-if-Et3)#isis network point-to-point
+Spine2(config-if-Et3)#isis authentication mode md5
+Spine2(config-if-Et3)#isis authentication key cisco
 
 Leaf1(config)#int ethernet 2
 Leaf1(config-if-Et2)#isis network point-to-point
