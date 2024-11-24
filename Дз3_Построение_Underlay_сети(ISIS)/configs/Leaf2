@@ -1,0 +1,48 @@
+interface Ethernet1
+   description P2P_Spine1_Eth2
+   no switchport
+   ip address 10.1.1.10/30
+   bfd interval 100 min-rx 100 multiplier 3
+   ip ospf neighbor bfd
+   ip ospf network point-to-point
+   ip ospf authentication message-digest
+   ip ospf area 0.0.0.0
+   ip ospf message-digest-key 1 md5 7 LpyMIOE5MPsSRq6pTPawmA==
+   isis enable 99
+   isis circuit-type level-1
+   isis network point-to-point
+   isis authentication mode md5
+   isis authentication key 7 TB1Je5TPRlIB2skrgLFR+A==
+!
+interface Ethernet2
+   description P2P_Spine2_ETh2
+   no switchport
+   ip address 10.1.2.10/30
+   bfd interval 100 min-rx 100 multiplier 3
+   ip ospf neighbor bfd
+   ip ospf network point-to-point
+   ip ospf authentication message-digest
+   ip ospf area 0.0.0.0
+   ip ospf message-digest-key 1 md5 7 lIjV8sEai21iNsPCdcUksQ==
+   isis enable 99
+   isis circuit-type level-1
+   isis network point-to-point
+   isis authentication mode md5
+   isis authentication key 7 TB1Je5TPRlIB2skrgLFR+A==
+!
+interface Loopback1
+   description Loopback1
+   ip address 10.1.4.1/32
+   ip ospf area 0.0.0.0
+   isis enable 99
+   isis circuit-type level-1
+!
+interface Loopback2
+   description Loopback2
+   ip address 10.1.4.2/32
+   ip ospf area 0.0.0.0
+   isis enable 99
+   isis circuit-type level-1
+!
+router ospf 99
+   distance ospf intra-area 120
