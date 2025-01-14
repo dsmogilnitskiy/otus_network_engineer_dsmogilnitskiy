@@ -285,7 +285,7 @@ VLAN  Mac Address     Type      Prt  VTEP             Moves   Last Move
 Total Remote Mac Addresses for this criterion: 1
 ```
 
-И посмотрим на сторой тип маршрутов
+И посмотрим на второй тип маршрутов
 ```console
 Leaf1#show bgp evpn route-type mac-ip 
 BGP routing table information for VRF default
