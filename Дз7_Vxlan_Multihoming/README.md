@@ -240,6 +240,7 @@ Neighbor Status Codes: m - Under maintenance
 
 ### 4. Настроим Overlay на новых коммутаторах и поднимим Vxlan
 
+```console
 Spine1#conf t
 Spine1(config)#router bgp 65534
 Spine1(config-router-bgp)#neighbor 10.1.6.1 send-community extended 
@@ -340,6 +341,7 @@ Spine2(config)#router bgp 65534
 Spine2(config-router-bgp)#address-family evpn
 Spine2(config-router-bgp-af)#neighbor 10.1.6.1 activate 
 Spine2(config-router-bgp-af)#neighbor 10.1.7.1 activate 
+```
 
 Проверим что vxlan поднялся
 
