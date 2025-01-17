@@ -1,0 +1,46 @@
+! Command: show running-config
+! device: CUSTOMER-1 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model ribd
+!
+hostname CUSTOMER-1
+!
+spanning-tree mode mstp
+!
+vlan 100
+   name PC
+!
+interface Port-Channel1
+   switchport trunk allowed vlan 100
+   switchport mode trunk
+!
+interface Ethernet1
+   channel-group 1 mode active
+!
+interface Ethernet2
+   channel-group 1 mode active
+!
+interface Ethernet3
+   switchport access vlan 100
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Management1
+!
+no ip routing
+!
+end
