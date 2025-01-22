@@ -9,6 +9,48 @@
 7. Настроить Route liking в VRF lite
 8. Проверить внешние маршруты type 5
 
+### Добавить L3 схему сети
+
+![alt text](image.png)
+
+### 2. Таблица с IP пространством
+| network ipv4 | Device/port|    Description    |
+|--------------|:----------:| -----------------:|
+| 10.1.1.1/32  | Spine1/lo1 |     Loopback1     |
+| 10.1.1.2/32  | Spine1/lo2 |     Loopback2     |
+| 10.1.2.1/32  | Spine2/lo1 |     Loopback1     |
+| 10.1.2.2/32  | Spine2/lo2 |     Loopback2     |
+| 10.1.3.1/32  |  Leaf1/lo1 |     Loopback1     |
+| 10.1.3.2/32  |  Leaf1/lo2 |     Loopback2     |
+| 10.1.3.3/32  |  Leaf2/lo3 |     Loopback3     |
+| 10.1.4.1/32  |  Leaf2/lo1 |     Loopback1     |
+| 10.1.4.2/32  |  Leaf2/lo2 |     Loopback2     |
+| 10.1.4.3/32  |  Leaf2/lo3 |     Loopback3     |
+| 10.1.5.1/32  |  Leaf3/lo1 |     Loopback1     |
+| 10.1.5.2/32  |  Leaf3/lo2 |     Loopback2     |
+| 10.1.5.3/32  |  Leaf3/lo3 |     Loopback3     |
+| 10.1.6.1/32  |  Leaf1-2/lo1 |     Loopback1     |
+| 10.1.6.2/32  |  Leaf1-2/lo2 |     Loopback2     |
+| 10.1.6.3/32  |  Leaf1-2/lo3 |     Loopback3     |
+| 10.1.7.1/32  |  Leaf3-2/lo1 |     Loopback1     |
+| 10.1.7.2/32  |  Leaf3-2/lo2 |     Loopback2     |
+| 10.1.7.3/32  |  Leaf3-2/lo3 |     Loopback3     |
+| 10.1.1.5/30  | Spine1/Eth1| P2P Link To Leaf1 |
+| 10.1.1.9/30  | Spine1/Eth2| P2P Link To Leaf2 |
+| 10.1.1.13/30 | Spine1/Eth3| P2P Link To Leaf3 |
+| 10.1.1.17/30 | Spine1/Eth4| P2P Link To Leaf1-2 |
+| 10.1.1.21/30 | Spine1/Eth5| P2P Link To Leaf3-2 |
+| 10.1.1.6/30  | Leaf1/Eth1 | P2P Link To Spine1|
+| 10.1.2.6/30  | Leaf1/Eth2 | P2P Link To Spine2|
+| 10.1.2.5/30  | Spine2/Eth1| P2P Link To Leaf1 |
+| 10.1.2.9/30  | Spine2/Eth2| P2P Link To Leaf2 |
+| 10.1.2.13/30 | Spine2/Eth3| P2P Link To Leaf3 |
+| 10.1.2.17/30 | Spine2/Eth4| P2P Link To Leaf1-2 |
+| 10.1.2.21/30 | Spine2/Eth5| P2P Link To Leaf3-2 |
+| 10.1.1.10/30 | Leaf2/Eth1 | P2P Link To Spine1|
+| 10.1.2.10/30 | Leaf2/Eth2 | P2P Link To Spine2|
+| 10.1.1.14/30 | Leaf3/Eth1 | P2P Link To Spine1|
+| 10.1.2.14/30 | Leaf3/Eth2 | P2P Link To Spine2|
 
 ### 3. Настроить дополнительный VRF и L3 VNI
 В качестве L3 VNI возьмем идентификатор 100002  
