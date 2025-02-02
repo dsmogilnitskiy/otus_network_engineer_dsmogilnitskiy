@@ -1,0 +1,129 @@
+! Command: show running-config
+! device: Leaf4 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname Leaf4
+!
+spanning-tree mode mstp
+!
+vlan 100
+   name PC
+!
+vrf instance GLOBAL
+!
+interface Ethernet1
+   description P2P_Spine3_Eth1
+   no switchport
+   ip address 10.2.1.6/30
+   ip ospf network point-to-point
+   ip ospf area 0.0.0.0
+!
+interface Ethernet2
+   description P2P_Spine4_Eth1
+   no switchport
+   ip address 10.2.2.6/30
+   ip ospf network point-to-point
+   ip ospf area 0.0.0.0
+!
+interface Ethernet3
+   description == To_DC1 ==
+   no switchport
+   ip address 1.1.2.1/30
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+   switchport access vlan 100
+!
+interface Loopback1
+   description Loopback1
+   ip address 10.2.3.1/32
+   ip ospf area 0.0.0.0
+!
+interface Loopback2
+   description Loopback2
+   ip address 10.2.3.2/32
+   ip ospf area 0.0.0.0
+!
+interface Loopback3
+   description Vxlan
+   ip address 10.2.3.3/32
+!
+interface Management1
+!
+interface Vxlan1
+   vxlan source-interface Loopback3
+   vxlan udp-port 4789
+   vxlan vlan 100 vni 100100
+   vxlan vrf GLOBAL vni 100001
+!
+ip routing
+ip routing vrf GLOBAL
+!
+router bgp 64531
+   router-id 10.2.3.1
+   neighbor 1.1.2.2 remote-as 63535
+   neighbor 1.1.2.2 update-source Ethernet3
+   neighbor 1.1.2.2 send-community extended
+   neighbor 10.1.5.3 remote-as 65533
+   neighbor 10.1.5.3 update-source Loopback3
+   neighbor 10.1.5.3 ebgp-multihop
+   neighbor 10.1.5.3 send-community extended
+   neighbor 10.2.1.1 remote-as 64534
+   neighbor 10.2.1.1 update-source Loopback1
+   neighbor 10.2.1.1 ebgp-multihop
+   neighbor 10.2.1.1 send-community extended
+   neighbor 10.2.2.1 remote-as 64534
+   neighbor 10.2.2.1 update-source Loopback1
+   neighbor 10.2.2.1 ebgp-multihop
+   neighbor 10.2.2.1 send-community extended
+   !
+   vlan 100
+      rd evpn domain all 64531:100100
+      route-target import export evpn domain all 65531:100100
+      redistribute learned
+   !
+   address-family evpn
+      neighbor 10.1.5.3 activate
+      neighbor 10.1.5.3 domain remote
+      neighbor 10.2.1.1 activate
+      neighbor 10.2.2.1 activate
+   !
+   address-family ipv4
+      neighbor 1.1.2.2 activate
+      no neighbor 2.2.2.2 activate
+      neighbor 10.2.1.1 activate
+      neighbor 10.2.2.1 activate
+      network 10.2.3.2/32
+      network 10.2.3.3/32
+   !
+   vrf GLOBAL
+      rd 64531:100001
+      route-target import evpn 1:100001
+      route-target export evpn 1:100001
+      redistribute connected
+!
+router ospf 99
+   router-id 10.2.3.1
+   distance ospf intra-area 120
+   passive-interface default
+   no passive-interface Ethernet1
+   no passive-interface Ethernet2
+   no passive-interface Loopback1
+   no passive-interface Loopback2
+   max-lsa 12000
+!
+end

@@ -1,0 +1,58 @@
+! Command: show running-config
+! device: Provider (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname Provider
+!
+spanning-tree mode mstp
+!
+interface Ethernet1
+   description == To_DC1 ==
+   no switchport
+   ip address 1.1.1.2/30
+!
+interface Ethernet2
+   description == To_DC2 ==
+   no switchport
+   ip address 1.1.2.2/30
+!
+interface Ethernet3
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Loopback1
+   ip address 2.2.2.2/32
+!
+interface Management1
+!
+ip routing
+!
+router bgp 63535
+   router-id 2.2.2.2
+   neighbor 1.1.1.1 remote-as 65533
+   neighbor 1.1.1.1 update-source Ethernet1
+   neighbor 1.1.1.1 send-community extended
+   neighbor 1.1.2.1 remote-as 64531
+   neighbor 1.1.2.1 update-source Ethernet2
+   neighbor 1.1.2.1 send-community extended
+   !
+   address-family ipv4
+      neighbor 1.1.1.1 activate
+      neighbor 1.1.2.1 activate
+!
+end
